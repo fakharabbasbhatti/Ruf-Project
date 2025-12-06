@@ -3,47 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stylish To-Do List</title>
+<title>Cute To-Do List 💖✨</title>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Quicksand", sans-serif;
     }
 
     body {
         height: 100vh;
-        background: linear-gradient(135deg, #6e00ff, #00d4ff);
+        background: linear-gradient(135deg, #ffb7e2, #b5e3ff, #ffdca8);
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 20px;
+        animation: bgMove 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: left; }
+        100% { background-position: right; }
     }
 
     .container {
         width: 380px;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 20px;
         padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 0 25px rgba(0,0,0,0.2);
-        animation: fadeIn 0.7s ease;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 10px 30px rgba(255, 150, 200, 0.4);
+        animation: pop 0.6s ease;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.98); }
-        to { opacity: 1; transform: scale(1); }
+    @keyframes pop {
+        0% { transform: scale(0.9); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
 
     h1 {
         text-align: center;
-        color: #fff;
-        margin-bottom: 20px;
+        color: #ff4ba8;
         font-size: 28px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-shadow: 0 0 10px #ffffffaa;
     }
 
+    /* Input Box */
     .input-box {
         display: flex;
         gap: 10px;
@@ -54,67 +65,78 @@
         flex: 1;
         padding: 12px;
         border: none;
-        border-radius: 8px;
+        border-radius: 12px;
         outline: none;
         font-size: 15px;
-        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        background: #ffffffcc;
+        box-shadow: 0 5px 12px rgba(255, 100, 180, 0.2);
     }
 
     button {
         width: 90px;
         border: none;
-        background: #ff0080;
+        background: #ff7ac6;
         color: #fff;
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 16px;
         cursor: pointer;
         transition: .3s;
+        box-shadow: 0 5px 12px rgba(255, 100, 180, 0.4);
     }
 
     button:hover {
-        background: #d6006e;
-        transform: scale(1.05);
+        background: #ff4ba8;
+        transform: scale(1.08);
     }
 
+    /* Task List */
     ul {
         list-style: none;
     }
 
     li {
-        background: rgba(255,255,255,0.3);
+        background: #ffffffcc;
         padding: 12px;
-        border-radius: 10px;
+        border-radius: 15px;
         margin-bottom: 12px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #fff;
-        font-size: 16px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        font-size: 15px;
+        animation: fade 0.4s ease;
+        box-shadow: 0 5px 15px rgba(255, 160, 220, 0.3);
         transition: .3s;
     }
 
+    @keyframes fade {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     li:hover {
-        transform: scale(1.02);
+        transform: scale(1.03);
     }
 
     li.completed {
         text-decoration: line-through;
-        opacity: 0.6;
+        opacity: 0.5;
+        background: #ffe4f3;
     }
 
     .delete-btn {
-        background: #ff3b3b;
+        background: #ff5e5e;
         border: none;
-        padding: 5px 12px;
+        padding: 7px 12px;
         color: #fff;
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
         transition: .3s;
+        box-shadow: 0 4px 10px rgba(255, 50, 80, 0.3);
     }
 
     .delete-btn:hover {
-        background: #d60000;
+        background: #ff2f2f;
+        transform: scale(1.1);
     }
 </style>
 </head>
@@ -122,10 +144,10 @@
 <body>
 
 <div class="container">
-    <h1>To-Do List ✨</h1>
+    <h1>My Cute Tasks 🐰💖</h1>
 
     <div class="input-box">
-        <input type="text" id="task-input" placeholder="Type your task...">
+        <input type="text" id="task-input" placeholder="Add a cute task... ✨">
         <button onclick="addTask()">Add</button>
     </div>
 
@@ -138,14 +160,14 @@ function addTask() {
     let taskText = input.value.trim();
 
     if (taskText === "") {
-        alert("Please enter a task!");
+        alert("Please type something cute! 💕");
         return;
     }
 
     let li = document.createElement("li");
     li.innerHTML = `
         <span onclick="toggleTask(this)">${taskText}</span>
-        <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+        <button class="delete-btn" onclick="deleteTask(this)">×</button>
     `;
 
     document.getElementById("task-list").appendChild(li);
