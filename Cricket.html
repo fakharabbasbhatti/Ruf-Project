@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cricket RUF — Scoreboard & Match Simulator</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#f97316; --glass:rgba(255,255,255,0.04);
+      --green:#10b981; --red:#ef4444;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071025 0%, #071427 100%);color:#e6eef8}
+    .wrap{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between}
+    h1{font-size:20px;margin:0}
+    .sub{color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:380px 1fr;gap:18px;margin-top:18px}
+
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
+    .input-row{display:flex;gap:8px;align-items:center}
+    input[type=text]{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    button{background:linear-gradient(180deg,var(--accent), #d97706);border:0;padding:8px 12px;border-radius:8px;color:white;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    .scoreboard{display:flex;gap:12px;align-items:center}
+    .team{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+    .team h2{margin:0;font-size:18px}
+    .big{font-size:36px;font-weight:700}
+    .meta{color:var(--muted);font-size:13px}
+
+    .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .controls button{min-width:62px}
+
+    .log{height:260px;overflow:auto;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    .log p{margin:6px 0;font-size:13px}
+    .flex{display:flex;align-items:center;gap:8px}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.wrap{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Cricket RUF — Scoreboard & Match Simulator</h1>
+        <div class="sub">Simple single-file HTML/CSS/JS project — scoreboard, ball-by-ball logging, and a small simulator.</div>
+      </div>
+      <div class="sub">Built with ❤️ for HTML/CSS/JavaScript</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <div class="input-row">
+          <input id="teamA" type="text" placeholder="Team A name" value="Team A">
+          <input id="teamB" type="text" placeholder="Team B name" value="Team B">
+          <button id="startBtn">Start Match</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="scoreboard">
+            <div class="team">
+              <h2 id="teamAName">Team A</h2>
+              <div class="big"><span id="runsA">0</span>/<span id="wktsA">0</span></div>
+              <div class="meta">Overs: <span id="oversA">0.0</span></div>
+            </div>
+
+            <div class="team">
+              <h2 id="teamBName">Team B</h2>
+              <div class="big"><span id="runsB">0</span>/<span id="wktsB">0</span></div>
+              <div class="meta">Overs: <span id="oversB">0.0</span></div>
+            </div>
+          </div>
+
+          <div class="flex" style="margin-top:12px;justify-content:space-between">
+            <div class="meta">Innings: <strong id="inningsLabel">Team A batting</strong></div>
+            <div class="meta">Balls in current over: <span id="ballCount">0</span></div>
+          </div>
+
+          <div class="controls">
+            <button data-run="0">0</button>
+            <button data-run="1">1</button>
+            <button data-run="2">2</button>
+            <button data-run="3">3</button>
+            <button data-run="4">4</button>
+            <button data-run="5">5</button>
+            <button data-run="6">6</button>
+            <button id="wicketBtn">Wicket</button>
+            <button id="wideBtn">Wide</button>
+            <button id="nbBtn">NoBall</button>
+            <button id="undoBtn" class="ghost">Undo</button>
+            <button id="simulateBtn" class="ghost">Simulate Ball</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="meta">Match log</div>
+            <div id="log" class="log"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3 style="margin-top:0">Match Controls & Settings</h3>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+          <label class="meta">Overs per innings:</label>
+          <input id="maxOvers" type="number" value="20" min="1" style="width:80px;padding:6px;border-radius:6px;background:var(--glass);border:1px solid rgba(255,255,255,0.03)">
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+
+        <div class="meta">Quick actions</div>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button id="endInnings" class="ghost">End Innings</button>
+          <button id="swapBtn" class="ghost">Swap Strike</button>
+          <button id="saveBtn" class="ghost">Save to localStorage</button>
+          <button id="loadBtn" class="ghost">Load from localStorage</button>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+        <h4 style="margin:0 0 8px 0">How it works</h4>
+        <div class="meta" style="line-height:1.5">
+          - Click <strong>Start Match</strong> after filling team names. <br>
+          - Use the run buttons for normal deliveries. <br>
+          - <strong>Wide</strong> and <strong>NoBall</strong> add an extra run but do not count as legal ball. <br>
+          - <strong>Wicket</strong> increases wicket count and consumes a legal ball. <br>
+          - <strong>Simulate Ball</strong> plays a random outcome (0–6, wicket, wide, noball). <br>
+          - Change maximum overs to set T20/ODI/other formats.
+        </div>
+
+        <footer>
+          Need customization? Tell me what extra features to add (player list, run-rate calculator, graphs, export CSV). 
+        </footer>
+      </section>
+    </main>
+
+    <script>
+      // Basic match state
+      const state = {
+        teams: ["Team A","Team B"],
+        stats: [ {runs:0, wkts:0, balls:0, overs:0}, {runs:0, wkts:0, balls:0, overs:0} ],
+        battingIndex: 0, // 0 = team A batting, 1 = team B batting
+        maxOvers: 20,
+        log: [],
+        history: []
+      }
+
+      // DOM
+      const teamAName = document.getElementById('teamAName');
+      const teamBName = document.getElementById('teamBName');
+      const runsA = document.getElementById('runsA');
+      const runsB = document.getElementById('runsB');
+      const wktsA = document.getElementById('wktsA');
+      const wktsB = document.getElementById('wktsB');
+      const oversA = document.getElementById('oversA');
+      const oversB = document.getElementById('oversB');
+      const inningsLabel = document.getElementById('inningsLabel');
+      const ballCount = document.getElementById('ballCount');
+      const logEl = document.getElementById('log');
+
+      // inputs
+      const teamAInput = document.getElementById('teamA');
+      const teamBInput = document.getElementById('teamB');
+      const startBtn = document.getElementById('startBtn');
+      const maxOversInput = document.getElementById('maxOvers');
+      const resetBtn = document.getElementById('resetBtn');
+
+      // action buttons
+      const runButtons = document.querySelectorAll('[data-run]');
+      const wicketBtn = document.getElementById('wicketBtn');
+      const wideBtn = document.getElementById('wideBtn');
+      const nbBtn = document.getElementById('nbBtn');
+      const undoBtn = document.getElementById('undoBtn');
+      const simulateBtn = document.getElementById('simulateBtn');
+      const endInningsBtn = document.getElementById('endInnings');
+      const swapBtn = document.getElementById('swapBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const loadBtn = document.getElementById('loadBtn');
+
+      function refreshUI(){
+        teamAName.textContent = state.teams[0];
+        teamBName.textContent = state.teams[1];
+        runsA.textContent = state.stats[0].runs;
+        wktsA.textContent = state.stats[0].wkts;
+        oversA.textContent = toOversString(state.stats[0]);
+        runsB.textContent = state.stats[1].runs;
+        wktsB.textContent = state.stats[1].wkts;
+        oversB.textContent = toOversString(state.stats[1]);
+        inningsLabel.textContent = `${state.teams[state.battingIndex]} batting`;
+        ballCount.textContent = state.stats[state.battingIndex].balls % 6;
+        renderLog();
+      }
+
+      function toOversString(s){
+        return Math.floor(s.balls/6) + '.' + (s.balls%6);
+      }
+
+      function pushLog(text){
+        const time = new Date().toLocaleTimeString();
+        state.log.unshift({t:time,text});
+        renderLog();
+      }
+
+      function renderLog(){
+        logEl.innerHTML = state.log.map(item => `<p><strong>[${item.t}]</strong> ${item.text}</p>`).join('');
+      }
+
+      function applyDelivery({runs=0, legal=true, wicket=false, extraType=null}){
+        const idx = state.battingIndex;
+        const s = state.stats[idx];
+        // Save snapshot to history for undo
+        state.history.push(JSON.parse(JSON.stringify(state)));
+
+        if(wicket){ s.wkts += 1; }
+        if(extraType === 'wide' || extraType === 'noball'){ s.runs += 1; }
+        s.runs += runs;
+
+        if(legal){ s.balls += 1; }
+
+        pushLog(`${state.teams[idx]} — ${wicket? 'WICKET': runs>0? runs + ' run(s)': '0'}${extraType? ' ('+extraType+')' : ''} — Score: ${s.runs}/${s.wkts} (${toOversString(s)})`);
+
+        // Check end of innings
+        const ballsSoFar = s.balls;
+        const maxBalls = state.maxOvers * 6;
+        if(ballsSoFar >= maxBalls || s.wkts >= 10){
+          pushLog(`Innings ended for ${state.teams[idx]}`);
+          // if first innings, switch
+          if(state.battingIndex === 0){
+            state.battingIndex = 1;
+            pushLog(`${state.teams[1]} will bat now`);
+          } else {
+            pushLog(`Match finished.`);
+          }
+        }
+
+        refreshUI();
+      }
+
+      // event wiring
+      startBtn.addEventListener('click', ()=>{
+        state.teams[0] = teamAInput.value || 'Team A';
+        state.teams[1] = teamBInput.value || 'Team B';
+        state.maxOvers = parseInt(maxOversInput.value) || 20;
+        state.stats = [ {runs:0,wkts:0,balls:0,overs:0}, {runs:0,wkts:0,balls:0,overs:0} ];
+        state.battingIndex = 0; state.log = []; state.history=[];
+        pushLog(`Match started: ${state.teams[0]} vs ${state.teams[1]} — ${state.maxOvers} overs`);
+        refreshUI();
+      });
+
+      runButtons.forEach(btn => btn.addEventListener('click', (e)=>{
+        const runs = parseInt(e.currentTarget.getAttribute('data-run'));
+        applyDelivery({runs, legal:true});
+      }));
+
+      wicketBtn.addEventListener('click', ()=> applyDelivery({runs:0, legal:true, wicket:true}));
+      wideBtn.addEventListener('click', ()=> applyDelivery({runs:0, legal:false, extraType:'wide'}));
+      nbBtn.addEventListener('click', ()=> applyDelivery({runs:0, legal:false, extraType:'noball'}));
+
+      undoBtn.addEventListener('click', ()=>{
+        if(state.history.length===0) return pushLog('Nothing to undo');
+        const prev = state.history.pop();
+        // restore shallowly
+        Object.assign(state, JSON.parse(JSON.stringify(prev)));
+        pushLog('Last action undone');
+        refreshUI();
+      });
+
+      simulateBtn.addEventListener('click', ()=>{
+        // outcomes: 0-6, wicket(7), wide(8), noball(9)
+        const pick = Math.floor(Math.random()*10);
+        if(pick<=6) applyDelivery({runs:pick, legal:true});
+        else if(pick===7) applyDelivery({runs:0, legal:true, wicket:true});
+        else if(pick===8) applyDelivery({runs:0, legal:false, extraType:'wide'});
+        else applyDelivery({runs:0, legal:false, extraType:'noball'});
+      });
+
+      endInningsBtn.addEventListener('click', ()=>{
+        const idx = state.battingIndex;
+        pushLog(`Forced end of innings for ${state.teams[idx]}`);
+        if(idx===0){ state.battingIndex = 1; pushLog(`${state.teams[1]} will bat now`);} else pushLog('Match finished');
+        refreshUI();
+      });
+
+      swapBtn.addEventListener('click', ()=>{ pushLog('Strike swapped (visual only)'); });
+
+      resetBtn.addEventListener('click', ()=>{
+        location.reload();
+      });
+
+      saveBtn.addEventListener('click', ()=>{
+        localStorage.setItem('cricket_ruf_state', JSON.stringify(state));
+        pushLog('Saved to localStorage');
+      });
+      loadBtn.addEventListener('click', ()=>{
+        const s = localStorage.getItem('cricket_ruf_state');
+        if(!s) return pushLog('No saved match found');
+        const obj = JSON.parse(s);
+        Object.assign(state, obj);
+        pushLog('Loaded match from localStorage');
+        refreshUI();
+      });
+
+      // init
+      refreshUI();
+
+    </script>
+  </div>
+</body>
+</html>
