@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Connection - F & R</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <!-- Meta Tags for SEO and Social Sharing -->
+    <meta name="description" content="An enchanting visual representation of connection between 'F' and 'R' through a beautiful, pulsating heart.">
+    <meta name="keywords" content="heart, love, design, animation, interactive, F and R, connection">
+    <meta name="author" content="Heart Connection Project">
+    <meta property="og:title" content="Heart Connection - F & R">
+    <meta property="og:description" content="An enchanting visual representation of connection between 'F' and 'R' through a beautiful, pulsating heart.">
+    <meta property="og:type" content="website">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            padding: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff4d8d;
+            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 77, 141, 0.7);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .header p {
+            color: #b0b0d0;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        /* Main Heart Container */
+        .heart-section {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 3D Heart */
+        .heart-3d {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(45deg, #ff4d8d, #ff2e74, #ff0066);
+            transform: rotate(45deg);
+            border-radius: 15px;
+            box-shadow: 
+                0 0 50px rgba(255, 77, 141, 0.7),
+                inset 0 0 30px rgba(255, 255, 255, 0.2),
+                0 0 100px rgba(255, 0, 102, 0.4);
+            animation: heartbeat 1.2s ease-in-out infinite, float 6s ease-in-out infinite;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .heart-3d:before,
+        .heart-3d:after {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(45deg, #ff4d8d, #ff2e74, #ff0066);
+            border-radius: 50%;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .heart-3d:before {
+            top: -160px;
+            left: 0;
+        }
+        
+        .heart-3d:after {
+            top: 0;
+            left: -160px;
+        }
+        
+        /* Glassmorphism Letters */
+        .letter-container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 80px;
+            z-index: 3;
+        }
+        
+        .letter {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 8rem;
+            font-weight: 900;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+        }
+        
+        .letter:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .letter:hover:before {
+            left: 100%;
+        }
+        
+        .letter-f {
+            background: rgba(41, 128, 185, 0.25);
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            text-shadow: 0 0 20px rgba(52, 152, 219, 0.7);
+        }
+        
+        .letter-r {
+            background: rgba(46, 204, 113, 0.25);
+            border: 2px solid rgba(46, 204, 113, 0.5);
+            text-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+        }
+        
+        .letter:hover {
+            transform: translateY(-15px) scale(1.15);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Connection Line */
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                rgba(52, 152, 219, 0.8) 0%, 
+                rgba(255, 77, 141, 1) 50%, 
+                rgba(46, 204, 113, 0.8) 100%);
+            transform: translateY(-50%);
+            z-index: 1;
+            opacity: 0.7;
+            box-shadow: 0 0 20px rgba(255, 77, 141, 0.5);
+        }
+        
+        .connection-line:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(10px);
+            opacity: 0.5;
+        }
+        
+        /* Control Panel */
+        .control-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0 auto 60px;
+            max-width: 900px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .control-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ff4d8d;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .btn-heart {
+            background: linear-gradient(45deg, #ff4d8d, #ff2e74);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            margin: 0 10px 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 77, 141, 0.4);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-heart:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 77, 141, 0.6);
+            color: white;
+        }
+        
+        .btn-heart:active {
+            transform: translateY(0);
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff4d8d, #3498db, #2ecc71);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-icon {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff4d8d, #3498db);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-card h3 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .stat-card p {
+            color: #b0b0d0;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .about-title {
+            color: #ff4d8d;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .about-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #ff4d8d;
+        }
+        
+        .about-item h3 {
+            color: #ff4d8d;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .about-item p {
+            color: #b0b0d0;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .heart-beat {
+            color: #ff4d8d;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+        
+        /* Animations */
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            5% { transform: rotate(45deg) scale(1.1); }
+            10% { transform: rotate(45deg) scale(1); }
+            15% { transform: rotate(45deg) scale(1.15); }
+            20% { transform: rotate(45deg) scale(1); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 77, 141, 0.7), 0 0 20px rgba(255, 77, 141, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 77, 141, 0.9), 0 0 30px rgba(255, 77, 141, 0.7), 0 0 40px rgba(255, 77, 141, 0.5); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 10px 2px white;
+            opacity: 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .heart-3d {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .heart-3d:before,
+            .heart-3d:after {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .heart-3d:before {
+                top: -125px;
+            }
+            
+            .heart-3d:after {
+                left: -125px;
+            }
+            
+            .letter {
+                width: 140px;
+                height: 140px;
+                font-size: 6rem;
+            }
+            
+            .letter-container {
+                padding: 0 50px;
+            }
+            
+            .heart-section {
+                height: 500px;
+            }
+            
+            .header h1 {
+                font-size: 3.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .heart-3d {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .heart-3d:before,
+            .heart-3d:after {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .heart-3d:before {
+                top: -100px;
+            }
+            
+            .heart-3d:after {
+                left: -100px;
+            }
+            
+            .letter {
+                width: 110px;
+                height: 110px;
+                font-size: 4.5rem;
+            }
+            
+            .letter-container {
+                padding: 0 30px;
+            }
+            
+            .heart-section {
+                height: 450px;
+            }
+            
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .control-panel {
+                padding: 20px;
+            }
+            
+            .btn-heart {
+                display: block;
+                width: 100%;
+                margin: 0 0 15px 0;
+            }
+            
+            .about-section {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .heart-3d {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .heart-3d:before,
+            .heart-3d:after {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .heart-3d:before {
+                top: -80px;
+            }
+            
+            .heart-3d:after {
+                left: -80px;
+            }
+            
+            .letter {
+                width: 90px;
+                height: 90px;
+                font-size: 3.5rem;
+            }
+            
+            .letter-container {
+                padding: 0 20px;
+            }
+            
+            .heart-section {
+                height: 380px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stat-card {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .about-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-heart heart-beat"></i> Heart Connection <i class="fas fa-heart heart-beat"></i></h1>
+            <p>An enchanting visual representation of connection between "F" and "R" through a beautiful, pulsating heart. Interact with the elements to create magical effects.</p>
+            <div class="connection-line"></div>
+        </header>
+        
+        <main>
+            <section class="heart-section" aria-label="Heart and Letters Section">
+                <!-- 3D Heart -->
+                <div class="heart-3d" id="heart3d" role="img" aria-label="Pulsating 3D Heart"></div>
+                
+                <!-- Glassmorphism Letters -->
+                <div class="letter-container">
+                    <div class="letter letter-f" id="letterF" role="button" aria-label="Letter F - Click for effects">F</div>
+                    <div class="letter letter-r" id="letterR" role="button" aria-label="Letter R - Click for effects">R</div>
+                </div>
+            </section>
+            
+            <!-- Control Panel -->
+            <section class="control-panel" aria-label="Control Panel">
+                <h2 class="control-title">Heart Controls</h2>
+                <div class="text-center">
+                    <button class="btn btn-heart" id="changeColor" aria-label="Change heart color">
+                        <i class="fas fa-palette"></i> Change Heart Color
+                    </button>
+                    <button class="btn btn-heart" id="toggleAnimation" aria-label="Toggle heart animation">
+                        <i class="fas fa-play"></i> Toggle Animation
+                    </button>
+                    <button class="btn btn-heart" id="swapLetters" aria-label="Swap letters F and R">
+                        <i class="fas fa-exchange-alt"></i> Swap Letters
+                    </button>
+                    <button class="btn btn-heart" id="addSparkles" aria-label="Add sparkle effects">
+                        <i class="fas fa-sparkles"></i> Add Sparkles
+                    </button>
+                    <button class="btn btn-heart" id="pulseEffect" aria-label="Create pulse effect">
+                        <i class="fas fa-wave-pulse"></i> Pulse Effect
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Stats Cards -->
+            <section class="stats-container" aria-label="Interaction Statistics">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                    </div>
+                    <h3 id="heartClicks">0</h3>
+                    <p>Heart Clicks</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                    </div>
+                    <h3 id="swapCount">0</h3>
+                    <p>Letter Swaps</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-palette" aria-hidden="true"></i>
+                    </div>
+                    <h3 id="colorChanges">0</h3>
+                    <p>Color Changes</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-sparkles" aria-hidden="true"></i>
+                    </div>
+                    <h3 id="sparkleCount">0</h3>
+                    <p>Sparkles Created</p>
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section class="about-section" aria-label="About this Project">
+                <h2 class="about-title">About This Project</h2>
+                <div class="about-content">
+                    <article class="about-item">
+                        <h3><i class="fas fa-code"></i> Technology Used</h3>
+                        <p>This project is built with pure HTML5, CSS3, and JavaScript. It uses Bootstrap for responsive layout and Font Awesome for icons. The background particles are created with Particle.js library.</p>
+                    </article>
+                    
+                    <article class="about-item">
+                        <h3><i class="fas fa-magic"></i> Interactive Features</h3>
+                        <p>Click on the heart, letters, or buttons to create stunning visual effects. The heart beats with animation, letters can be swapped, and colors can be changed dynamically.</p>
+                    </article>
+                    
+                    <article class="about-item">
+                        <h3><i class="fas fa-heart"></i> Design Philosophy</h3>
+                        <p>The design represents connection and love through visual elements. The "F" and "R" letters symbolize two entities connected through a pulsating heart in the center.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <p>Created with <i class="fas fa-heart heart-beat" aria-hidden="true"></i> using HTML, CSS, JavaScript, Bootstrap & Particle.js</p>
+            <p class="mt-2">Click on the heart, letters, or use controls to create magical interactions!</p>
+            <p class="mt-2" style="color: #ff4d8d; font-size: 0.8rem;">
+                <i class="fas fa-info-circle"></i> Favicon implemented using inline SVG for cross-browser compatibility
+            </p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particles background
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ff4d8d" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ff4d8d",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                }
+            });
+            
+            // Get elements
+            const heart = document.getElementById('heart3d');
+            const letterF = document.getElementById('letterF');
+            const letterR = document.getElementById('letterR');
+            const changeColorBtn = document.getElementById('changeColor');
+            const toggleAnimationBtn = document.getElementById('toggleAnimation');
+            const swapLettersBtn = document.getElementById('swapLetters');
+            const addSparklesBtn = document.getElementById('addSparkles');
+            const pulseEffectBtn = document.getElementById('pulseEffect');
+            
+            // Stats elements
+            const heartClicksEl = document.getElementById('heartClicks');
+            const swapCountEl = document.getElementById('swapCount');
+            const colorChangesEl = document.getElementById('colorChanges');
+            const sparkleCountEl = document.getElementById('sparkleCount');
+            
+            // Initialize stats
+            let stats = {
+                heartClicks: 0,
+                swapCount: 0,
+                colorChanges: 0,
+                sparkleCount: 0
+            };
+            
+            // Update stats display
+            function updateStats() {
+                heartClicksEl.textContent = stats.heartClicks;
+                swapCountEl.textContent = stats.swapCount;
+                colorChangesEl.textContent = stats.colorChanges;
+                sparkleCountEl.textContent = stats.sparkleCount;
+                
+                // Update page title with stats (fun effect)
+                document.title = `❤️ Heart Connection - F & R | ${stats.heartClicks} Clicks`;
+            }
+            
+            // Color schemes for the heart
+            const colorSchemes = [
+                { primary: '#ff4d8d', secondary: '#ff2e74', tertiary: '#ff0066' }, // Pink
+                { primary: '#3498db', secondary: '#2980b9', tertiary: '#1f639b' }, // Blue
+                { primary: '#2ecc71', secondary: '#27ae60', tertiary: '#1e8449' }, // Green
+                { primary: '#9b59b6', secondary: '#8e44ad', tertiary: '#7d3c98' }, // Purple
+                { primary: '#e74c3c', secondary: '#c0392b', tertiary: '#a93226' }, // Red
+                { primary: '#f39c12', secondary: '#e67e22', tertiary: '#d35400' }, // Orange
+                { primary: '#1abc9c', secondary: '#16a085', tertiary: '#138a72' }  // Turquoise
+            ];
+            
+            let currentColorIndex = 0;
+            let isAnimating = true;
+            
+            // Change heart color with enhanced gradient
+            function changeHeartColor() {
+                stats.colorChanges++;
+                updateStats();
+                
+                currentColorIndex = (currentColorIndex + 1) % colorSchemes.length;
+                const colors = colorSchemes[currentColorIndex];
+                
+                // Update heart gradient
+                heart.style.background = `linear-gradient(45deg, ${colors.primary}, ${colors.secondary}, ${colors.tertiary})`;
+                heart.style.boxShadow = `
+                    0 0 50px ${colors.primary}80,
+                    inset 0 0 30px rgba(255, 255, 255, 0.2),
+                    0 0 100px ${colors.tertiary}66
+                `;
+                
+                // Update pseudo elements
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .heart-3d:before, .heart-3d:after {
+                        background: linear-gradient(45deg, ${colors.primary}, ${colors.secondary}, ${colors.tertiary}) !important;
+                    }
+                `;
+                
+                // Remove previous style
+                const existingStyle = document.getElementById('dynamic-heart-style');
+                if (existingStyle) existingStyle.remove();
+                
+                style.id = 'dynamic-heart-style';
+                document.head.appendChild(style);
+                
+                // Update connection line
+                document.querySelector('.connection-line').style.background = `linear-gradient(90deg, 
+                    rgba(52, 152, 219, 0.8) 0%, 
+                    ${colors.primary} 50%, 
+                    rgba(46, 204, 113, 0.8) 100%)`;
+                
+                // Update button colors
+                document.querySelectorAll('.btn-heart').forEach(btn => {
+                    btn.style.background = `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`;
+                    btn.style.boxShadow = `0 8px 20px ${colors.primary}66`;
+                });
+                
+                // Create color change effect
+                createParticles(heart, 20, colors.primary);
+                
+                // Update favicon color (simulated)
+                updateFaviconColor(colors.primary);
+            }
+            
+            // Update favicon color (conceptual)
+            function updateFaviconColor(color) {
+                // In a real implementation, you would generate a new favicon
+                // Here we'll just change the document title to show the concept
+                console.log(`Favicon color would change to: ${color}`);
+            }
+            
+            // Toggle heartbeat animation
+            function toggleHeartbeat() {
+                if (isAnimating) {
+                    heart.style.animation = 'float 6s ease-in-out infinite';
+                    toggleAnimationBtn.innerHTML = '<i class="fas fa-play"></i> Start Heartbeat';
+                    toggleAnimationBtn.classList.remove('btn-success');
+                    toggleAnimationBtn.classList.add('btn-secondary');
+                } else {
+                    heart.style.animation = 'heartbeat 1.2s ease-in-out infinite, float 6s ease-in-out infinite';
+                    toggleAnimationBtn.innerHTML = '<i class="fas fa-pause"></i> Stop Heartbeat';
+                    toggleAnimationBtn.classList.remove('btn-secondary');
+                    toggleAnimationBtn.classList.add('btn-success');
+                }
+                isAnimating = !isAnimating;
+            }
+            
+            // Swap letters with enhanced animation
+            function swapLetters() {
+                stats.swapCount++;
+                updateStats();
+                
+                const fText = letterF.textContent;
+                const rText = letterR.textContent;
+                
+                // Animate swapping with particles
+                createParticles(letterF, 15, '#3498db');
+                createParticles(letterR, 15, '#2ecc71');
+                
+                // Animate letters moving towards center
+                letterF.style.transform = 'translateY(-50%) translateX(150px) scale(0.9) rotate(-20deg)';
+                letterR.style.transform = 'translateY(-50%) translateX(-150px) scale(0.9) rotate(20deg)';
+                
+                setTimeout(() => {
+                    // Swap letters
+                    letterF.textContent = rText;
+                    letterR.textContent = fText;
+                    
+                    // Swap classes for colors
+                    const fClass = letterF.classList.contains('letter-f') ? 'letter-f' : 'letter-r';
+                    const rClass = letterR.classList.contains('letter-f') ? 'letter-f' : 'letter-r';
+                    
+                    letterF.classList.remove('letter-f', 'letter-r');
+                    letterR.classList.remove('letter-f', 'letter-r');
+                    
+                    letterF.classList.add(rClass);
+                    letterR.classList.add(fClass);
+                    
+                    // Move letters back to positions
+                    letterF.style.transform = 'translateY(-50%) translateX(0) scale(1) rotate(0)';
+                    letterR.style.transform = 'translateY(-50%) translateX(0) scale(1) rotate(0)';
+                    
+                    // Create celebration particles
+                    createParticles(heart, 30, '#ff4d8d');
+                }, 400);
+            }
+            
+            // Add sparkles effect
+            function addSparkles() {
+                stats.sparkleCount += 50;
+                updateStats();
+                
+                for (let i = 0; i < 50; i++) {
+                    createSparkle();
+                }
+            }
+            
+            // Create individual sparkle
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                
+                // Random position
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                
+                // Random size
+                const size = Math.random() * 8 + 4;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                // Random color
+                const colors = ['#ff4d8d', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                sparkle.style.background = color;
+                sparkle.style.boxShadow = `0 0 10px 2px ${color}`;
+                
+                document.body.appendChild(sparkle);
+                
+                // Animate sparkle
+                const duration = Math.random() * 1 + 0.5;
+                sparkle.style.transition = `all ${duration}s ease-out`;
+                
+                setTimeout(() => {
+                    sparkle.style.opacity = '1';
+                    sparkle.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`;
+                }, 10);
+                
+                // Remove sparkle after animation
+                setTimeout(() => {
+                    sparkle.style.opacity = '0';
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.parentNode.removeChild(sparkle);
+                        }
+                    }, 1000);
+                }, 100);
+            }
+            
+            // Create particle effect
+            function createParticles(element, count, color) {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                for (let i = 0; i < count; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = '8px';
+                    particle.style.height = '8px';
+                    particle.style.background = color;
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = `${centerX}px`;
+                    particle.style.top = `${centerY}px`;
+                    particle.style.zIndex = '1000';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.boxShadow = `0 0 10px ${color}`;
+                    
+                    document.body.appendChild(particle);
+                    
+                    // Random direction and distance
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const targetX = centerX + Math.cos(angle) * distance;
+                    const targetY = centerY + Math.sin(angle) * distance;
+                    
+                    // Animate particle
+                    const duration = Math.random() * 0.5 + 0.5;
+                    particle.style.transition = `all ${duration}s ease-out`;
+                    
+                    setTimeout(() => {
+                        particle.style.left = `${targetX}px`;
+                        particle.style.top = `${targetY}px`;
+                        particle.style.opacity = '0';
+                        particle.style.transform = 'scale(0)';
+                    }, 10);
+                    
+                    // Remove particle after animation
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, duration * 1000 + 100);
+                }
+            }
+            
+            // Pulse effect on heart
+            function pulseEffect() {
+                heart.style.transform = 'rotate(45deg) scale(1.3)';
+                heart.style.boxShadow = '0 0 80px rgba(255, 77, 141, 0.9)';
+                
+                // Create ripple effect
+                createRippleEffect(heart);
+                
+                setTimeout(() => {
+                    heart.style.transform = 'rotate(45deg) scale(1)';
+                    heart.style.boxShadow = '0 0 50px rgba(255, 77, 141, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 0, 102, 0.4)';
+                }, 500);
+            }
+            
+            // Create ripple effect
+            function createRippleEffect(element) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.border = '2px solid rgba(255, 255, 255, 0.7)';
+                ripple.style.width = '10px';
+                ripple.style.height = '10px';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.zIndex = '1';
+                
+                element.appendChild(ripple);
+                
+                // Animate ripple
+                setTimeout(() => {
+                    ripple.style.width = '500px';
+                    ripple.style.height = '500px';
+                    ripple.style.opacity = '0';
+                    ripple.style.transition = 'all 1s ease-out';
+                }, 10);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                }, 1100);
+            }
+            
+            // Add click effects to letters
+            letterF.addEventListener('click', function() {
+                this.style.transform = 'translateY(-50%) scale(1.3) rotate(-15deg)';
+                createParticles(this, 20, '#3498db');
+                
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-50%) scale(1) rotate(0)';
+                }, 300);
+            });
+            
+            letterR.addEventListener('click', function() {
+                this.style.transform = 'translateY(-50%) scale(1.3) rotate(15deg)';
+                createParticles(this, 20, '#2ecc71');
+                
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-50%) scale(1) rotate(0)';
+                }, 300);
+            });
+            
+            // Add click effect to heart
+            heart.addEventListener('click', function() {
+                stats.heartClicks++;
+                updateStats();
+                
+                this.classList.toggle('heart-beat');
+                createParticles(this, 30, '#ff4d8d');
+                createRippleEffect(this);
+                
+                // Create floating hearts
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        createFloatingHeart(this);
+                    }, i * 100);
+                }
+            });
+            
+            // Create floating heart animation
+            function createFloatingHeart(element) {
+                const floatingHeart = document.createElement('div');
+                floatingHeart.innerHTML = '<i class="fas fa-heart"></i>';
+                floatingHeart.style.position = 'absolute';
+                
+                const rect = element.getBoundingClientRect();
+                floatingHeart.style.left = `${rect.left + rect.width / 2}px`;
+                floatingHeart.style.top = `${rect.top + rect.height / 2}px`;
+                
+                floatingHeart.style.fontSize = '24px';
+                floatingHeart.style.color = '#ff4d8d';
+                floatingHeart.style.zIndex = '1000';
+                floatingHeart.style.opacity = '1';
+                floatingHeart.style.transition = 'all 1.5s ease-out';
+                floatingHeart.style.textShadow = '0 0 10px rgba(255, 77, 141, 0.8)';
+                
+                document.body.appendChild(floatingHeart);
+                
+                // Random movement
+                const randomX = (Math.random() - 0.5) * 200;
+                const randomY = -Math.random() * 150 - 100;
+                
+                setTimeout(() => {
+                    floatingHeart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                    floatingHeart.style.opacity = '0';
+                    floatingHeart.style.fontSize = '12px';
+                }, 10);
+                
+                // Remove element after animation
+                setTimeout(() => {
+                    if (floatingHeart.parentNode) {
+                        floatingHeart.parentNode.removeChild(floatingHeart);
+                    }
+                }, 1600);
+            }
+            
+            // Event listeners for buttons
+            changeColorBtn.addEventListener('click', changeHeartColor);
+            toggleAnimationBtn.addEventListener('click', toggleHeartbeat);
+            swapLettersBtn.addEventListener('click', swapLetters);
+            addSparklesBtn.addEventListener('click', addSparkles);
+            pulseEffectBtn.addEventListener('click', pulseEffect);
+            
+            // Initialize with some sparkles
+            setTimeout(() => {
+                addSparkles();
+            }, 1000);
+            
+            // Update stats initially
+            updateStats();
+        });
+    </script>
+</body>
+</html>
