@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rida Tariq - Typewriter Message</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-family: 'Courier Prime', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .typewriter-container {
+            background-color: #34495e;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px;
+            border: 15px solid #2c3e50;
+            position: relative;
+        }
+        
+        .typewriter-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #e74c3c;
+        }
+        
+        .typewriter-header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .typewriter-header h1 i {
+            color: #f1c40f;
+            margin-right: 15px;
+        }
+        
+        .typewriter-body {
+            background-color: #1a252f;
+            border-radius: 5px;
+            padding: 30px;
+            min-height: 300px;
+            position: relative;
+            border: 1px solid #7f8c8d;
+        }
+        
+        .paper {
+            background-color: #fefefe;
+            color: #2c3e50;
+            min-height: 240px;
+            padding: 25px;
+            border-radius: 3px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-family: 'Courier Prime', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .message-line {
+            margin-bottom: 15px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 35px;
+            background-color: #e74c3c;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .typewriter-keys {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-typewriter {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-typewriter:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-typewriter:active {
+            transform: translateY(1px);
+        }
+        
+        .typewriter-footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #bdc3c7;
+            font-size: 1.1rem;
+        }
+        
+        .typewriter-footer i {
+            color: #e74c3c;
+            margin: 0 5px;
+        }
+        
+        .heart {
+            color: #e74c3c;
+            font-size: 2rem;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.3); }
+            10% { transform: scale(1.1); }
+            15% { transform: scale(1.4); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e74c3c;
+            text-align: right;
+            margin-top: 20px;
+            padding-right: 30px;
+        }
+        
+        .typewriter-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .typewriter-container {
+                padding: 20px;
+            }
+            
+            .typewriter-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .paper {
+                font-size: 1.5rem;
+                padding: 20px;
+            }
+            
+            .btn-typewriter {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .paper {
+                font-size: 1.3rem;
+            }
+            
+            .typewriter-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .signature {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="typewriter-container">
+        <div class="typewriter-header">
+            <h1><i class="fas fa-keyboard"></i> Vintage Typewriter Message</h1>
+        </div>
+        
+        <div class="typewriter-body">
+            <div class="paper">
+                <div class="message-line" id="line1"></div>
+                <div class="message-line" id="line2"></div>
+                <div class="message-line" id="line3"></div>
+                <div class="message-line" id="line4"></div>
+                <div class="signature" id="signature"></div>
+                
+                <div class="typewriter-details">
+                    <div>Date: <span id="current-date"></span></div>
+                    <div>Message #: 001</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="typewriter-keys">
+            <button class="btn-typewriter" id="start-btn">
+                <i class="fas fa-play"></i> Start Typing
+            </button>
+            <button class="btn-typewriter" id="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+            <button class="btn-typewriter" id="auto-btn">
+                <i class="fas fa-robot"></i> Auto Play
+            </button>
+        </div>
+        
+        <div class="typewriter-footer">
+            <p>Made with <span class="heart"><i class="fas fa-heart"></i></span> using HTML, CSS, Bootstrap & JavaScript</p>
+            <p>For a very special person <i class="fas fa-star"></i></p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Typewriter message
+        const message = {
+            line1: "My Dearest Rida Tariq,",
+            line2: "Every moment without you feels like a page",
+            line3: "waiting to be written. You complete my story.",
+            line4: "With all my heart,",
+            signature: "I love you"
+        };
+        
+        // DOM elements
+        const line1Element = document.getElementById('line1');
+        const line2Element = document.getElementById('line2');
+        const line3Element = document.getElementById('line3');
+        const line4Element = document.getElementById('line4');
+        const signatureElement = document.getElementById('signature');
+        
+        const startBtn = document.getElementById('start-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const autoBtn = document.getElementById('auto-btn');
+        
+        // Typewriter variables
+        let currentLine = 1;
+        let currentChar = 0;
+        let isTyping = false;
+        let isAutoPlaying = false;
+        let typingInterval;
+        
+        // Typewriter sound effect function
+        function playTypeSound() {
+            // Create audio context for typewriter sound
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 100 + Math.random() * 50;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Type one character at a time
+        function typeCharacter() {
+            if (!isTyping) return;
+            
+            let currentElement;
+            let currentText;
+            
+            // Determine which line we're typing
+            switch(currentLine) {
+                case 1:
+                    currentElement = line1Element;
+                    currentText = message.line1;
+                    break;
+                case 2:
+                    currentElement = line2Element;
+                    currentText = message.line2;
+                    break;
+                case 3:
+                    currentElement = line3Element;
+                    currentText = message.line3;
+                    break;
+                case 4:
+                    currentElement = line4Element;
+                    currentText = message.line4;
+                    break;
+                case 5:
+                    currentElement = signatureElement;
+                    currentText = message.signature;
+                    break;
+                default:
+                    // Finished typing
+                    isTyping = false;
+                    clearInterval(typingInterval);
+                    
+                    // If auto-playing, reset after a delay
+                    if (isAutoPlaying) {
+                        setTimeout(() => {
+                            resetTypewriter();
+                            setTimeout(startAutoTyping, 1000);
+                        }, 3000);
+                    }
+                    return;
+            }
+            
+            // If we've typed all characters in the current line
+            if (currentChar >= currentText.length) {
+                currentLine++;
+                currentChar = 0;
+                
+                // Add a delay between lines
+                clearInterval(typingInterval);
+                setTimeout(() => {
+                    typingInterval = setInterval(typeCharacter, isAutoPlaying ? 80 : 120);
+                }, 500);
+                
+                return;
+            }
+            
+            // Add the next character
+            currentElement.textContent = currentText.substring(0, currentChar + 1);
+            currentChar++;
+            
+            // Add cursor after the text
+            if (currentElement.querySelector('.cursor')) {
+                currentElement.querySelector('.cursor').remove();
+            }
+            const cursor = document.createElement('span');
+            cursor.classList.add('cursor');
+            currentElement.appendChild(cursor);
+            
+            // Play typewriter sound occasionally
+            if (Math.random() > 0.3) {
+                playTypeSound();
+            }
+        }
+        
+        // Start typing
+        function startTyping() {
+            if (isTyping) return;
+            
+            isTyping = true;
+            startBtn.disabled = true;
+            startBtn.innerHTML = '<i class="fas fa-pause"></i> Typing...';
+            
+            typingInterval = setInterval(typeCharacter, 120);
+        }
+        
+        // Start auto-typing (looping)
+        function startAutoTyping() {
+            if (isAutoPlaying) return;
+            
+            isAutoPlaying = true;
+            autoBtn.disabled = true;
+            autoBtn.innerHTML = '<i class="fas fa-stop"></i> Auto Playing';
+            
+            startTyping();
+        }
+        
+        // Reset typewriter
+        function resetTypewriter() {
+            clearInterval(typingInterval);
+            
+            line1Element.textContent = '';
+            line2Element.textContent = '';
+            line3Element.textContent = '';
+            line4Element.textContent = '';
+            signatureElement.textContent = '';
+            
+            currentLine = 1;
+            currentChar = 0;
+            isTyping = false;
+            
+            startBtn.disabled = false;
+            startBtn.innerHTML = '<i class="fas fa-play"></i> Start Typing';
+            
+            autoBtn.disabled = false;
+            autoBtn.innerHTML = '<i class="fas fa-robot"></i> Auto Play';
+            
+            isAutoPlaying = false;
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', startTyping);
+        resetBtn.addEventListener('click', resetTypewriter);
+        autoBtn.addEventListener('click', startAutoTyping);
+        
+        // Initialize with cursor on first line
+        line1Element.innerHTML = '<span class="cursor"></span>';
+    </script>
+</body>
+</html>
