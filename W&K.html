@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>W ❤️ K Love</title>
+
+<!-- Favicon -->
+<link rel="icon"
+href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
+}
+
+/* Floating hearts */
+.sparkle{
+    position:absolute;
+    color:#fff;
+    font-size:18px;
+    opacity:.6;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh) scale(0)}
+    to{transform:translateY(-10vh) scale(1.2)}
+}
+
+.box{
+    background:rgba(255,255,255,.25);
+    backdrop-filter:blur(15px);
+    padding:50px 60px;
+    border-radius:30px;
+    box-shadow:0 20px 40px rgba(255,0,80,.35);
+    text-align:center;
+    animation:updown 4s ease-in-out infinite;
+}
+
+@keyframes updown{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
+}
+
+.text{
+    font-family:'Pacifico',cursive;
+    font-size:2.6rem;
+    color:#fff;
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:4px solid #fff;
+    padding-right:10px;
+}
+
+.hearts{
+    margin-top:20px;
+    color:#ff2e63;
+    font-size:2.2rem;
+}
+
+.hearts i{
+    margin:0 6px;
+    animation:pulse 1.4s infinite;
+}
+
+.hearts i:nth-child(2){animation-delay:.3s}
+.hearts i:nth-child(3){animation-delay:.6s}
+
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.3)}
+    100%{transform:scale(1)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<i class="fa-solid fa-heart sparkle" style="left:10%"></i>
+<i class="fa-solid fa-heart sparkle" style="left:30%;animation-delay:2s"></i>
+<i class="fa-solid fa-heart sparkle" style="left:50%;animation-delay:4s"></i>
+<i class="fa-solid fa-heart sparkle" style="left:70%;animation-delay:1s"></i>
+<i class="fa-solid fa-heart sparkle" style="left:90%;animation-delay:3s"></i>
+
+<div class="box">
+    <div id="typewriter" class="text"></div>
+    <div class="hearts">
+        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-heart"></i>
+    </div>
+</div>
+
+<script>
+const text = "W ❤️ K I Love You";
+let i = 0;
+let del = false;
+const speed = 120;
+const erase = 80;
+const wait = 1500;
+const el = document.getElementById("typewriter");
+
+function type(){
+    if(!del){
+        el.textContent = text.slice(0, ++i);
+        if(i === text.length) setTimeout(()=>del=true, wait);
+    }else{
+        el.textContent = text.slice(0, --i);
+        if(i === 0) del = false;
+    }
+    setTimeout(type, del ? erase : speed);
+}
+type();
+</script>
+
+</body>
+</html>
