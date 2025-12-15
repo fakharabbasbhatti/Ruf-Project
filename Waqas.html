@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W & K - Cute Typewriter Love Message</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Indie+Flower&family=Courgette&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #ff6b8b;
+            --secondary-pink: #ff9eb5;
+            --light-pink: #ffebf0;
+            --pastel-blue: #a0d2ff;
+            --pastel-yellow: #ffde7d;
+            --pastel-purple: #d9b8ff;
+            --text-dark: #5a3d5c;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffebf0 0%, #e0f7ff 100%);
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: var(--primary-pink);
+            font-size: 20px;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .typewriter-container {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(255, 107, 139, 0.2),
+                        0 0 0 15px white,
+                        0 0 0 20px var(--pastel-purple);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            margin: 20px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .typewriter-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--light-pink) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .typewriter-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .header-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-pink), var(--pastel-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            font-family: 'Courgette', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-family: 'Indie Flower', cursive;
+        }
+        
+        .typewriter-body {
+            background: linear-gradient(to bottom, #fff9fb, #fff);
+            border-radius: 20px;
+            padding: 30px;
+            min-height: 350px;
+            position: relative;
+            border: 3px dashed var(--secondary-pink);
+            box-shadow: inset 0 0 20px rgba(255, 107, 139, 0.1);
+        }
+        
+        .paper {
+            background: linear-gradient(to bottom, #fff, #f9f3ff);
+            min-height: 280px;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 2rem;
+            line-height: 1.8;
+            font-family: 'Indie Flower', cursive;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            height: 3px;
+            background: repeating-linear-gradient(to right, var(--primary-pink), var(--primary-pink) 10px, transparent 10px, transparent 20px);
+        }
+        
+        .message-line {
+            margin-bottom: 15px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .message-line::before {
+            content: '❀';
+            position: absolute;
+            left: 0;
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary-pink), var(--pastel-purple));
+            margin-left: 8px;
+            animation: blink 0.8s infinite, colorChange 2s infinite;
+            vertical-align: middle;
+            border-radius: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        @keyframes colorChange {
+            0% { background: var(--primary-pink); }
+            50% { background: var(--pastel-purple); }
+            100% { background: var(--primary-pink); }
+        }
+        
+        .typewriter-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cute {
+            background: linear-gradient(45deg, var(--primary-pink), var(--pastel-purple));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-cute::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-cute:hover::before {
+            left: 100%;
+        }
+        
+        .btn-cute:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 139, 0.4);
+        }
+        
+        .btn-cute:active {
+            transform: translateY(0) scale(1);
+        }
+        
+        .typewriter-footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            font-family: 'Indie Flower', cursive;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-heart {
+            color: var(--primary-pink);
+            font-size: 2.5rem;
+            animation: heartbeat 1.2s infinite;
+            display: inline-block;
+            margin: 0 15px;
+            filter: drop-shadow(0 0 5px rgba(255, 107, 139, 0.5));
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.4); }
+            10% { transform: scale(1.1); }
+            15% { transform: scale(1.5); }
+            20%, 100% { transform: scale(1); }
+        }
+        
+        .special-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            background: linear-gradient(45deg, var(--primary-pink), #ff3366, var(--pastel-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(255, 107, 139, 0.7)); }
+            to { filter: drop-shadow(0 0 15px rgba(255, 107, 139, 0.9)); }
+        }
+        
+        .decoration-stars {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--pastel-yellow);
+        }
+        
+        .decoration-stars i {
+            margin: 0 3px;
+            animation: twinkle 2s infinite;
+        }
+        
+        .decoration-stars i:nth-child(2) { animation-delay: 0.5s; }
+        .decoration-stars i:nth-child(3) { animation-delay: 1s; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .auto-notice {
+            background: var(--light-pink);
+            color: var(--primary-pink);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 20px;
+            display: inline-block;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 107, 139, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 3px 10px rgba(255, 107, 139, 0.2); }
+            50% { box-shadow: 0 3px 20px rgba(255, 107, 139, 0.4); }
+            100% { box-shadow: 0 3px 10px rgba(255, 107, 139, 0.2); }
+        }
+        
+        .message-counter {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: var(--pastel-blue);
+            color: var(--text-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .typewriter-container {
+                padding: 25px;
+            }
+            
+            .header-title {
+                font-size: 2.2rem;
+            }
+            
+            .paper {
+                font-size: 1.7rem;
+                padding: 20px;
+            }
+            
+            .btn-cute {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .special-name {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .paper {
+                font-size: 1.5rem;
+            }
+            
+            .typewriter-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-cute {
+                width: 80%;
+            }
+            
+            .special-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="typewriter-container">
+        <div class="decoration-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+        </div>
+        
+        <div class="typewriter-header">
+            <h1 class="header-title">
+                <i class="fas fa-heart"></i> Special Message Typewriter <i class="fas fa-heart"></i>
+            </h1>
+            <p class="header-subtitle">A cute message for someone very special...</p>
+        </div>
+        
+        <div class="typewriter-body">
+            <div class="paper">
+                <div class="message-line" id="line1"></div>
+                <div class="message-line" id="line2"></div>
+                <div class="message-line" id="line3"></div>
+                <div class="message-line" id="line4"></div>
+                <div class="message-line" id="line5"></div>
+                
+                <div class="message-counter">
+                    Message <span id="counter">1</span> of ∞
+                </div>
+            </div>
+        </div>
+        
+        <div class="typewriter-controls">
+            <button class="btn-cute" id="start-btn">
+                <i class="fas fa-play-circle"></i> Start Typing
+            </button>
+            <button class="btn-cute" id="speed-btn">
+                <i class="fas fa-tachometer-alt"></i> Change Speed
+            </button>
+            <button class="btn-cute" id="theme-btn">
+                <i class="fas fa-palette"></i> Change Theme
+            </button>
+        </div>
+        
+        <div class="auto-notice">
+            <i class="fas fa-robot"></i> Auto-typing is enabled - Message keeps repeating!
+        </div>
+        
+        <div class="typewriter-footer">
+            <p>This message was specially created with 
+                <span class="footer-heart"><i class="fas fa-heart"></i></span> 
+                for
+            </p>
+            <h2 class="special-name" id="special-name">W & K</h2>
+            <p>You are amazing and deserve all the happiness in the world!</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 25;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                
+                // Random position
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const size = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                heart.style.left = `${left}%`;
+                heart.style.top = `${top}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // Random color
+                const colors = ['#ff6b8b', '#ff9eb5', '#d9b8ff', '#a0d2ff', '#ffde7d'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.color = color;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Typewriter message variations (multiple cute messages)
+        const messages = [
+            {
+                line1: "My Dearest Kinza Tariq,",
+                line2: "Every time I think of you two, my heart does a little happy dance.",
+                line3: "You light up my world in ways I never knew possible.",
+                line4: "With all my love and affection,",
+                line5: "Forever and always,"
+            },
+            {
+                line1: "To the amazing Kinza Tariq,",
+                line2: "Your bond is like sunshine on a cloudy day.",
+                line3: "You make everything better just by being together.",
+                line4: "Thinking of you with love,",
+                line5: "Always and forever,"
+            },
+            {
+                line1: "Dear Kinza Tariq,",
+                line2: "You are the most wonderful couple I know.",
+                line3: "My world is brighter with you two in it.",
+                line4: "With all my heart,",
+                line5: "Endlessly,"
+            },
+            {
+                line1: "My Sweet Kinza Tariq,",
+                line2: "You are the answer to every prayer I never said.",
+                line3: "Seeing you together feels like witnessing true love.",
+                line4: "Yours truly,",
+                line5: "With infinite love,"
+            }
+        ];
+        
+        const signatures = [
+            "I LOVE YOU BOTH SO MUCH! 💖",
+            "YOU MEAN THE WORLD TO ME! 🌎",
+            "MY HEART BELONGS TO YOU! 💝",
+            "FOREVER YOURS! 🥰",
+            "YOU ARE MY EVERYTHING! ✨"
+        ];
+        
+        // DOM elements
+        const line1Element = document.getElementById('line1');
+        const line2Element = document.getElementById('line2');
+        const line3Element = document.getElementById('line3');
+        const line4Element = document.getElementById('line4');
+        const line5Element = document.getElementById('line5');
+        const counterElement = document.getElementById('counter');
+        const specialNameElement = document.getElementById('special-name');
+        
+        const startBtn = document.getElementById('start-btn');
+        const speedBtn = document.getElementById('speed-btn');
+        const themeBtn = document.getElementById('theme-btn');
+        
+        // Typewriter variables
+        let currentLine = 1;
+        let currentChar = 0;
+        let isTyping = false;
+        let currentMessageIndex = 0;
+        let currentSignatureIndex = 0;
+        let typingSpeed = 100; // ms per character
+        let messageCounter = 1;
+        let typingInterval;
+        
+        // Current theme
+        let currentTheme = 0;
+        const themes = [
+            { primary: '#ff6b8b', secondary: '#ff9eb5', light: '#ffebf0' },
+            { primary: '#6b5bff', secondary: '#9b8bff', light: '#f0ebff' },
+            { primary: '#5bff6b', secondary: '#8bff9b', light: '#ebfff0' },
+            { primary: '#ffb86b', secondary: '#ffd89b', light: '#fff7eb' }
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            startAutoTyping();
+            animateName();
+        });
+        
+        // Animate the special name
+        function animateName() {
+            const name = "W & K";
+            let index = 0;
+            
+            function typeName() {
+                if (index < name.length) {
+                    specialNameElement.textContent = name.substring(0, index + 1);
+                    index++;
+                    setTimeout(typeName, 200);
+                } else {
+                    // After typing, start color animation
+                    setInterval(() => {
+                        const colors = ['#ff6b8b', '#ff3366', '#d9b8ff', '#6b5bff', '#ff6b8b'];
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                        specialNameElement.style.background = `linear-gradient(45deg, ${randomColor}, ${colors[(colors.indexOf(randomColor)+1)%colors.length]})`;
+                        specialNameElement.style.webkitBackgroundClip = 'text';
+                        specialNameElement.style.backgroundClip = 'text';
+                    }, 2000);
+                }
+            }
+            
+            typeName();
+        }
+        
+        // Type one character at a time
+        function typeCharacter() {
+            if (!isTyping) return;
+            
+            let currentElement;
+            let currentText;
+            const message = messages[currentMessageIndex];
+            const signature = signatures[currentSignatureIndex];
+            
+            // Determine which line we're typing
+            switch(currentLine) {
+                case 1:
+                    currentElement = line1Element;
+                    currentText = message.line1;
+                    break;
+                case 2:
+                    currentElement = line2Element;
+                    currentText = message.line2;
+                    break;
+                case 3:
+                    currentElement = line3Element;
+                    currentText = message.line3;
+                    break;
+                case 4:
+                    currentElement = line4Element;
+                    currentText = message.line4;
+                    break;
+                case 5:
+                    currentElement = line5Element;
+                    currentText = message.line5;
+                    break;
+                case 6:
+                    currentElement = line5Element;
+                    currentText = signature;
+                    break;
+                default:
+                    // Finished typing this message
+                    isTyping = false;
+                    clearInterval(typingInterval);
+                    
+                    // Move to next message after a delay
+                    setTimeout(() => {
+                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                        currentSignatureIndex = (currentSignatureIndex + 1) % signatures.length;
+                        messageCounter++;
+                        counterElement.textContent = messageCounter;
+                        
+                        // Clear the paper
+                        line1Element.textContent = '';
+                        line2Element.textContent = '';
+                        line3Element.textContent = '';
+                        line4Element.textContent = '';
+                        line5Element.textContent = '';
+                        
+                        // Start typing the next message
+                        currentLine = 1;
+                        currentChar = 0;
+                        setTimeout(startAutoTyping, 500);
+                    }, 2000);
+                    
+                    return;
+            }
+            
+            // If we've typed all characters in the current line
+            if (currentChar >= currentText.length) {
+                currentLine++;
+                currentChar = 0;
+                
+                // Add a delay between lines
+                clearInterval(typingInterval);
+                setTimeout(() => {
+                    typingInterval = setInterval(typeCharacter, typingSpeed);
+                }, 300);
+                
+                return;
+            }
+            
+            // Add the next character
+            currentElement.textContent = currentText.substring(0, currentChar + 1);
+            currentChar++;
+            
+            // Add cursor after the text
+            if (currentElement.querySelector('.cursor')) {
+                currentElement.querySelector('.cursor').remove();
+            }
+            const cursor = document.createElement('span');
+            cursor.classList.add('cursor');
+            currentElement.appendChild(cursor);
+            
+            // Play typewriter sound occasionally
+            if (Math.random() > 0.5) {
+                playTypeSound();
+            }
+        }
+        
+        // Start auto-typing (continuous)
+        function startAutoTyping() {
+            if (isTyping) return;
+            
+            isTyping = true;
+            startBtn.disabled = true;
+            startBtn.innerHTML = '<i class="fas fa-magic"></i> Typing...';
+            
+            typingInterval = setInterval(typeCharacter, typingSpeed);
+        }
+        
+        // Change typing speed
+        function changeTypingSpeed() {
+            const speeds = [150, 100, 70, 40];
+            const speedLabels = ['Slow', 'Normal', 'Fast', 'Super Fast'];
+            const currentIndex = speeds.indexOf(typingSpeed);
+            const nextIndex = (currentIndex + 1) % speeds.length;
+            
+            typingSpeed = speeds[nextIndex];
+            speedBtn.innerHTML = `<i class="fas fa-tachometer-alt"></i> Speed: ${speedLabels[nextIndex]}`;
+            
+            // If currently typing, restart with new speed
+            if (isTyping) {
+                clearInterval(typingInterval);
+                typingInterval = setInterval(typeCharacter, typingSpeed);
+            }
+        }
+        
+        // Change theme
+        function changeTheme() {
+            currentTheme = (currentTheme + 1) % themes.length;
+            const theme = themes[currentTheme];
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary-pink', theme.primary);
+            document.documentElement.style.setProperty('--secondary-pink', theme.secondary);
+            document.documentElement.style.setProperty('--light-pink', theme.light);
+            
+            const themeNames = ['Pink', 'Purple', 'Green', 'Orange'];
+            themeBtn.innerHTML = `<i class="fas fa-palette"></i> Theme: ${themeNames[currentTheme]}`;
+        }
+        
+        // Typewriter sound effect
+        function playTypeSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 120 + Math.random() * 60;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', startAutoTyping);
+        speedBtn.addEventListener('click', changeTypingSpeed);
+        themeBtn.addEventListener('click', changeTheme);
+        
+        // Initialize with cursor on first line
+        line1Element.innerHTML = '<span class="cursor"></span>';
+    </script>
+</body>
+</html>
