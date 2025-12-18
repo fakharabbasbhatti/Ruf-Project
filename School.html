@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Project - HTML CSS JS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My School Project</h1>
+    <p>HTML, CSS aur JavaScript ka use</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#demo">Demo</a>
+  </nav>
+
+  <section id="about">
+    <div class="card">
+      <h2>About Project</h2>
+      <p>
+        Ye project HTML, CSS aur JavaScript ka use karke banaya gaya hai.
+        Iska purpose basic web development concepts ko samajhna hai.
+      </p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="card">
+      <h2>Project Features</h2>
+      <ul>
+        <li>Responsive Design</li>
+        <li>Simple Navigation Bar</li>
+        <li>JavaScript Interaction</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="card">
+      <h2>JavaScript Demo</h2>
+      <p>Button par click karo aur magic dekho 🙂</p>
+      <button onclick="showMessage()">Click Me</button>
+      <p id="message" style="margin-top:15px; font-weight:bold;"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Created by Student | School Project</p>
+  </footer>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").innerText = "Hello! JavaScript ka button kaam kar raha hai 🎉";
+    }
+  </script>
+
+</body>
+</html>
