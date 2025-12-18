@@ -3,117 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Project - HTML CSS JS</title>
+  <title>Attractive School Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
     }
     header {
-      background: #2c3e50;
-      color: white;
-      padding: 20px;
       text-align: center;
+      padding: 60px 20px;
+      color: white;
     }
+    header h1 { font-size: 2.8rem; margin-bottom: 10px; }
+    header p { font-size: 1.2rem; opacity: 0.9; }
+
     nav {
-      background: #34495e;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
-      gap: 20px;
-      padding: 10px;
+      gap: 30px;
+      padding: 15px;
+      position: sticky;
+      top: 0;
     }
     nav a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 500;
+      position: relative;
     }
-    nav a:hover {
-      text-decoration: underline;
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: white;
+      left: 0;
+      bottom: -5px;
+      transition: 0.3s;
     }
+    nav a:hover::after { width: 100%; }
+
     section {
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
+
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      margin-bottom: 30px;
+      animation: fadeUp 1s ease;
     }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-box {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .feature-box:hover { transform: translateY(-8px); }
+
     button {
-      padding: 10px 20px;
-      background: #3498db;
+      padding: 14px 30px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 30px;
       cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: 0.3s;
     }
-    button:hover {
-      background: #2980b9;
-    }
+    button:hover { transform: scale(1.05); }
+
     footer {
-      background: #2c3e50;
-      color: white;
       text-align: center;
-      padding: 15px;
+      padding: 20px;
+      color: white;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>My School Project</h1>
-    <p>HTML, CSS aur JavaScript ka use</p>
-  </header>
+<header>
+  <h1>RUF School Project</h1>
+  <p>HTML • CSS • JavaScript</p>
+</header>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#features">Features</a>
-    <a href="#demo">Demo</a>
-  </nav>
+<nav>
+  <a href="#about">About</a>
+  <a href="#features">Features</a>
+  <a href="#demo">Demo</a>
+</nav>
 
-  <section id="about">
-    <div class="card">
-      <h2>About Project</h2>
-      <p>
-        Ye project HTML, CSS aur JavaScript ka use karke banaya gaya hai.
-        Iska purpose basic web development concepts ko samajhna hai.
-      </p>
+<section id="about">
+  <div class="card">
+    <h2>About Project</h2>
+    <p>
+      Ye modern aur attractive school project HTML, CSS aur JavaScript ka use karke
+      banaya gaya hai. Iska aim web development ke basics ko smart design ke saath
+      dikhana hai.
+    </p>
+  </div>
+</section>
+
+<section id="features">
+  <div class="card">
+    <h2>Features</h2>
+    <div class="features">
+      <div class="feature-box">Responsive Layout</div>
+      <div class="feature-box">Modern UI Design</div>
+      <div class="feature-box">JavaScript Interaction</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="features">
-    <div class="card">
-      <h2>Project Features</h2>
-      <ul>
-        <li>Responsive Design</li>
-        <li>Simple Navigation Bar</li>
-        <li>JavaScript Interaction</li>
-      </ul>
-    </div>
-  </section>
+<section id="demo">
+  <div class="card">
+    <h2>JavaScript Demo</h2>
+    <p>Button click karo aur animated message dekho 👇</p>
+    <button onclick="showMessage()">Click Me</button>
+    <p id="message" style="margin-top:20px; font-weight:600;"></p>
+  </div>
+</section>
 
-  <section id="demo">
-    <div class="card">
-      <h2>JavaScript Demo</h2>
-      <p>Button par click karo aur magic dekho 🙂</p>
-      <button onclick="showMessage()">Click Me</button>
-      <p id="message" style="margin-top:15px; font-weight:bold;"></p>
-    </div>
-  </section>
+<footer>
+  <p>Designed by Student | School Project</p>
+</footer>
 
-  <footer>
-    <p>Created by Student | School Project</p>
-  </footer>
-
-  <script>
-    function showMessage() {
-      document.getElementById("message").innerText = "Hello! JavaScript ka button kaam kar raha hai 🎉";
-    }
-  </script>
+<script>
+  function showMessage() {
+    const msg = document.getElementById("message");
+    msg.innerText = "✨ JavaScript successfully working! ✨";
+    msg.style.color = "#667eea";
+  }
+</script>
 
 </body>
 </html>
