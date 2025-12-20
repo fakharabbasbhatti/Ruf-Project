@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F & K – Cute Typewriter Message</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Indie+Flower&family=Courgette&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary-pink:#ff6b8b;
+--secondary-pink:#ff9eb5;
+--light-pink:#ffebf0;
+--pastel-purple:#d9b8ff;
+--text-dark:#5a3d5c;
+}
+body{
+background:linear-gradient(135deg,#ffebf0,#e0f7ff);
+font-family:Poppins,sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+overflow-x:hidden;
+}
+.typewriter-container{
+background:#fff;
+border-radius:25px;
+padding:40px;
+max-width:900px;
+width:100%;
+box-shadow:0 20px 40px rgba(255,107,139,.25);
+}
+.header-title{
+font-family:Courgette,cursive;
+font-size:2.8rem;
+text-align:center;
+background:linear-gradient(45deg,var(--primary-pink),var(--pastel-purple));
+-webkit-background-clip:text;
+color:transparent;
+}
+.header-subtitle{
+text-align:center;
+font-family:'Indie Flower',cursive;
+margin-bottom:30px;
+}
+.paper{
+background:#fff9fb;
+border-radius:20px;
+padding:30px;
+font-size:2rem;
+font-family:'Indie Flower',cursive;
+border:3px dashed var(--secondary-pink);
+min-height:300px;
+}
+.message-line{margin-bottom:15px;min-height:45px}
+.cursor{
+display:inline-block;
+width:4px;
+height:35px;
+background:var(--primary-pink);
+animation:blink .8s infinite;
+margin-left:5px;
+}
+@keyframes blink{50%{opacity:.3}}
+.btn-cute{
+margin:15px;
+padding:15px 30px;
+border-radius:50px;
+border:none;
+font-size:1.2rem;
+color:white;
+background:linear-gradient(45deg,var(--primary-pink),var(--pastel-purple));
+cursor:pointer;
+transition:.3s;
+}
+.btn-cute:hover{transform:scale(1.08)}
+.special-name{
+font-family:'Dancing Script',cursive;
+font-size:3.5rem;
+text-align:center;
+background:linear-gradient(45deg,#ff6b8b,#ff3366,#d9b8ff);
+-webkit-background-clip:text;
+color:transparent;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{filter:drop-shadow(0 0 5px #ff6b8b)}
+to{filter:drop-shadow(0 0 15px #ff6b8b)}
+}
+footer{text-align:center;margin-top:30px;font-family:'Indie Flower',cursive}
+</style>
+</head>
+
+<body>
+
+<div class="typewriter-container">
+
+<h1 class="header-title">💖 F & K Special Message 💖</h1>
+<p class="header-subtitle">A cute typewriter message made with love</p>
+
+<div class="paper">
+<div class="message-line" id="line1"></div>
+<div class="message-line" id="line2"></div>
+<div class="message-line" id="line3"></div>
+<div class="message-line" id="line4"></div>
+<div class="message-line" id="line5"></div>
+</div>
+
+<div style="text-align:center">
+<button class="btn-cute" onclick="startTyping()">✨ Start ✨</button>
+</div>
+
+<h2 class="special-name" id="specialName">F & K</h2>
+
+<footer>
+<p>Made with ❤️ for <b>F & K</b></p>
+</footer>
+
+</div>
+
+<script>
+const messages=[
+{
+l1:"Dear F & K,",
+l2:"Two hearts, one beautiful connection.",
+l3:"Together you create magic and smiles.",
+l4:"May your bond grow stronger every day.",
+l5:"Forever F 💖 K"
+},
+{
+l1:"Hey F & K,",
+l2:"Your story is cute and special.",
+l3:"Laughter looks best when shared together.",
+l4:"Keep shining as a perfect duo.",
+l5:"Always F ✨ K"
+}
+];
+
+let msg=0,line=1,char=0,typing=false;
+
+function startTyping(){
+if(typing)return;
+typing=true;
+clearLines();
+typeChar();
+}
+
+function clearLines(){
+for(let i=1;i<=5;i++)document.getElementById("line"+i).innerHTML="";
+line=1;char=0;
+}
+
+function typeChar(){
+let text=messages[msg]["l"+line];
+let el=document.getElementById("line"+line);
+if(char<text.length){
+el.innerHTML=text.slice(0,++char)+'<span class="cursor"></span>';
+setTimeout(typeChar,80);
+}else{
+char=0;line++;
+if(line<=5)setTimeout(typeChar,400);
+else{
+msg=(msg+1)%messages.length;
+typing=false;
+}
+}
+}
+</script>
+
+</body>
+</html>
