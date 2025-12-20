@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 RUF Cute School Project</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--pink:#FF9FCD;
+--purple:#B5A6FF;
+--blue:#7AD0FF;
+--green:#8CFFC1;
+--white:#fffdf9;
+--text:#5a5a7a;
+}
+
+body{
+font-family:Poppins,sans-serif;
+background:var(--white);
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* FLOATING BLOBS */
+.blob{
+position:fixed;
+width:300px;
+height:300px;
+border-radius:50%;
+filter:blur(90px);
+opacity:.45;
+z-index:-1;
+animation:float 12s infinite alternate;
+}
+.blob.pink{background:#ff9fcd;top:10%;left:5%}
+.blob.purple{background:#b5a6ff;top:50%;right:5%}
+.blob.blue{background:#7ad0ff;bottom:5%;left:30%}
+
+@keyframes float{
+to{transform:translateY(-80px)}
+}
+
+/* GLASS */
+.glass{
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(16px);
+border-radius:30px;
+border:1px solid rgba(255,255,255,.4);
+}
+
+/* HEADER */
+header{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:linear-gradient(-45deg,#FFD6EC,#C2EBFF,#D9D1FF,#D1FFE8);
+background-size:400% 400%;
+animation:gradientMove 14s ease infinite;
+padding:40px;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+h1{
+font-family:"Comic Neue",cursive;
+font-size:4rem;
+margin-bottom:15px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+50%{transform:translateY(-12px)}
+}
+
+.highlight{
+background:linear-gradient(90deg,var(--pink),var(--purple));
+-webkit-background-clip:text;
+color:transparent;
+font-weight:700;
+}
+
+/* TYPEWRITER */
+#typewriter{
+font-size:1.4rem;
+min-height:40px;
+}
+.cursor{
+color:var(--pink);
+animation:blink 1s infinite;
+}
+@keyframes blink{
+50%{opacity:0}
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+padding:16px 38px;
+background:linear-gradient(135deg,var(--pink),var(--purple));
+color:white;
+border-radius:50px;
+text-decoration:none;
+font-weight:600;
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+transition:.3s;
+position:relative;
+overflow:hidden;
+}
+
+.btn:hover{
+transform:translateY(-4px) scale(1.05);
+}
+
+.btn::after{
+content:"";
+position:absolute;
+top:50%;
+left:50%;
+width:0;
+height:0;
+background:rgba(255,255,255,.4);
+border-radius:50%;
+transform:translate(-50%,-50%);
+transition:.6s;
+}
+.btn:active::after{
+width:300px;
+height:300px;
+opacity:0;
+}
+
+/* NAV */
+nav{
+position:sticky;
+top:0;
+z-index:1000;
+display:flex;
+justify-content:center;
+gap:30px;
+padding:15px;
+background:rgba(255,255,255,.6);
+backdrop-filter:blur(20px);
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+border-radius:0 0 30px 30px;
+}
+
+nav a{
+text-decoration:none;
+color:var(--text);
+font-weight:500;
+padding:8px 16px;
+border-radius:20px;
+transition:.3s;
+cursor:pointer;
+}
+
+nav a:hover{
+background:var(--pink);
+color:white;
+}
+
+/* SECTIONS */
+section{
+max-width:1100px;
+margin:80px auto;
+padding:20px;
+}
+
+.section-title{
+text-align:center;
+font-size:2.5rem;
+margin-bottom:40px;
+}
+.section-title::after{
+content:"";
+display:block;
+width:80px;
+height:5px;
+margin:15px auto;
+background:linear-gradient(90deg,var(--pink),var(--purple));
+border-radius:10px;
+}
+
+/* CARDS */
+.card{
+padding:40px;
+margin-bottom:40px;
+box-shadow:0 20px 40px rgba(0,0,0,.18);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 0 30px rgba(255,159,205,.6),
+0 0 60px rgba(181,166,255,.4);
+}
+
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.feature{
+padding:30px;
+text-align:center;
+}
+
+.feature i{
+font-size:2.5rem;
+color:var(--pink);
+margin-bottom:15px;
+}
+
+/* DEMO */
+.demo-box{
+text-align:center;
+font-size:1.3rem;
+margin-top:20px;
+padding:25px;
+border:3px dashed var(--pink);
+border-radius:25px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:60px 20px;
+background:linear-gradient(135deg,#FFD6EC,#D9D1FF);
+margin-top:80px;
+}
+
+/* SCROLL */
+.reveal{
+opacity:0;
+transform:translateY(40px);
+transition:.8s;
+}
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* DARK MODE */
+.dark{
+--white:#1e1e2e;
+--text:#f5f5f5;
+background:#1e1e2e;
+}
+.dark .highlight{
+text-shadow:0 0 15px #ff9fcd;
+}
+
+/* SPARKLE */
+@keyframes fadeOut{
+to{opacity:0;transform:scale(2)}
+}
+@keyframes fall{
+to{transform:translateY(110vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob pink"></div>
+<div class="blob purple"></div>
+<div class="blob blue"></div>
+
+<header>
+<div>
+<h1>🌸 RUF School Project 🌸</h1>
+<p><span id="typewriter" class="highlight"></span></p>
+<br>
+<a href="#about" class="btn">Explore 💖</a>
+</div>
+</header>
+
+<nav>
+<a href="#about">About</a>
+<a href="#features">Features</a>
+<a href="#demo">Fun</a>
+<a onclick="toggleDark()">🌙 Dark</a>
+</nav>
+
+<section id="about" class="reveal">
+<h2 class="section-title">About 🎀</h2>
+<div class="card glass">
+<p>This is a cute & modern school project made using <b>HTML, CSS & JavaScript</b>.  
+It uses animations, pastel colors, glassmorphism & fun effects 💕</p>
+</div>
+</section>
+
+<section id="features" class="reveal">
+<h2 class="section-title">Features 🐱</h2>
+<div class="features">
+<div class="feature glass">
+<i class="fas fa-mobile-alt"></i>
+<h3>Responsive</h3>
+<p>Mobile & desktop friendly</p>
+</div>
+<div class="feature glass">
+<i class="fas fa-palette"></i>
+<h3>Cute UI</h3>
+<p>Pastel + glass design</p>
+</div>
+<div class="feature glass">
+<i class="fas fa-bolt"></i>
+<h3>Interactive</h3>
+<p>Animations & effects</p>
+</div>
+</div>
+</section>
+
+<section id="demo" class="reveal">
+<h2 class="section-title">Fun Zone 🎮</h2>
+<div class="card glass">
+<button class="btn" onclick="showMessage()">Click Me ✨</button>
+<div id="msg" class="demo-box">Click for magic 🐰</div>
+</div>
+</section>
+
+<footer>
+<h2>🌸 RUF Project 🌸</h2>
+<p>Made with ❤️ for School</p>
+</footer>
+
+<script>
+/* TYPEWRITER */
+const texts=[
+"Cute & Interactive School Project 💖",
+"Made with HTML, CSS & JavaScript ✨",
+"Pastel Colors + Animations 🌸",
+"Designed to Impress Teachers 🎓"
+];
+let c=0,i=0;
+(function type(){
+if(c===texts.length)c=0;
+let t=texts[c];
+document.getElementById("typewriter").innerHTML=
+t.slice(0,++i)+"<span class='cursor'>|</span>";
+if(i===t.length){setTimeout(()=>{i=0;c++;},2000);}
+setTimeout(type,100);
+})();
+
+/* MESSAGE + CONFETTI */
+function showMessage(){
+const msgs=["🎀 You are awesome!","🌈 So colorful!","🐱 Cute project!","✨ Magic activated!"];
+document.getElementById("msg").innerText=msgs[Math.random()*4|0];
+
+for(let i=0;i<20;i++){
+let c=document.createElement("div");
+c.innerText=["🎉","✨","💖","🌈"][Math.random()*4|0];
+c.style.position="fixed";
+c.style.left=Math.random()*100+"vw";
+c.style.top="-20px";
+c.style.fontSize="20px";
+c.style.animation="fall 2s linear";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),2000);
+}
+}
+
+/* DARK MODE */
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+/* SCROLL REVEAL */
+const reveals=document.querySelectorAll(".reveal");
+window.addEventListener("scroll",()=>{
+reveals.forEach(r=>{
+if(r.getBoundingClientRect().top<window.innerHeight-100){
+r.classList.add("active");
+}
+});
+});
+
+/* SPARKLE CURSOR */
+document.addEventListener("mousemove",e=>{
+let s=document.createElement("div");
+s.innerText="✨";
+s.style.position="fixed";
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+s.style.pointerEvents="none";
+s.style.animation="fadeOut 1s linear";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+});
+</script>
+
+</body>
+</html>
