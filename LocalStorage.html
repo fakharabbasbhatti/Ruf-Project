@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌙 Cute Dark Todo</title>
+    <style>
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .todo-container {
+            background: #0f3460;
+            padding: 25px;
+            width: 330px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fbc7d4;
+            margin-bottom: 15px;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 8px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 12px;
+            border: 2px solid #533483;
+            outline: none;
+            background: #16213e;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            padding: 10px 14px;
+            cursor: pointer;
+            border: none;
+            background: #e94560;
+            color: white;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff6f91;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 18px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #16213e;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+        }
+
+        li span {
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #9aa0a6;
+        }
+
+        .delete {
+            background: #533483;
+            border-radius: 50%;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .delete:hover {
+            background: #7b5fc0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="todo-container">
+    <h1>🌙 Dark Todo</h1>
+
+    <div class="input-box">
+        <input type="text" id="todoInput" placeholder="✨ New task likhein...">
+        <button onclick="addTodo()">➕</button>
+    </div>
+
+    <ul id="todoList"></ul>
+</div>
+
+<script>
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+    function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }
+
+    function renderTodos() {
+        const list = document.getElementById("todoList");
+        list.innerHTML = "";
+
+        todos.forEach((todo, index) => {
+            const li = document.createElement("li");
+
+            const span = document.createElement("span");
+            span.innerText = "🌌 " + todo.text;
+            if (todo.completed) span.classList.add("completed");
+
+            span.onclick = () => {
+                todos[index].completed = !todos[index].completed;
+                saveTodos();
+                renderTodos();
+            };
+
+            const delBtn = document.createElement("button");
+            delBtn.innerText = "❌";
+            delBtn.className = "delete";
+            delBtn.onclick = () => {
+                todos.splice(index, 1);
+                saveTodos();
+                renderTodos();
+            };
+
+            li.appendChild(span);
+            li.appendChild(delBtn);
+            list.appendChild(li);
+        });
+    }
+
+    function addTodo() {
+        const input = document.getElementById("todoInput");
+        const task = input.value.trim();
+
+        if (task === "") {
+            alert("💜 Please koi task likhein!");
+            return;
+        }
+
+        todos.push({ text: task, completed: false });
+        saveTodos();
+        renderTodos();
+        input.value = "";
+    }
+
+    renderTodos();
+</script>
+
+</body>
+</html>
