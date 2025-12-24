@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .todo-container {
+            background: #fff;
+            padding: 20px;
+            width: 320px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 5px;
+        }
+
+        input {
+            flex: 1;
+            padding: 8px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eee;
+            padding: 8px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        li span {
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .delete {
+            background: red;
+            padding: 5px 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="todo-container">
+    <h1>Todo List</h1>
+
+    <div class="input-box">
+        <input type="text" id="todoInput" placeholder="New task likhein...">
+        <button onclick="addTodo()">Add</button>
+    </div>
+
+    <ul id="todoList"></ul>
+</div>
+
+<script>
+    function addTodo() {
+        const input = document.getElementById("todoInput");
+        const task = input.value.trim();
+
+        if (task === "") {
+            alert("Please task likhein!");
+            return;
+        }
+
+        const li = document.createElement("li");
+
+        const span = document.createElement("span");
+        span.innerText = task;
+        span.onclick = function () {
+            span.classList.toggle("completed");
+        };
+
+        const delBtn = document.createElement("button");
+        delBtn.innerText = "X";
+        delBtn.className = "delete";
+        delBtn.onclick = function () {
+            li.remove();
+        };
+
+        li.appendChild(span);
+        li.appendChild(delBtn);
+
+        document.getElementById("todoList").appendChild(li);
+        input.value = "";
+    }
+</script>
+
+</body>
+</html>
